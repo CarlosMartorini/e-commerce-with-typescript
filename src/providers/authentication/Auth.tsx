@@ -1,19 +1,10 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { useHistory } from "react-router-dom";
+import { User } from '../../types/User';
+import { UserSignUp } from '../../types/UserSignUp';
 import { toast } from "react-toastify";
 import api from "../../services/api";
 
-
-interface User {
-    username: string,
-    password: string,
-}
-
-interface UserSignUp {
-    username: string,
-    password: string,
-    email: string,
-}
 interface ProviderProps {
     children: ReactNode
 }
