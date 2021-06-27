@@ -1,43 +1,67 @@
-import { ReactNode, createContext, useContext, useState } from "react";
-import api from '../../services/api';
-import { Token } from '../../types/Token';
-import { User } from '../../types/User';
+import { createContext, useContext, useState, ReactNode } from "react";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import api from "../../services/api";
 
-interface AuthProvidersProps {
-    children: ReactNode;
+
+interface User {
+    username: string,
+    password: string,
 }
 
-interface AuthProviderData {
-    token: Token;
-    signIn: (user: User) => void;
+interface UserSignUp {
+    username: string,
+    password: string,
+    email: string,
+}
+interface ProviderProps {
+    children: ReactNode
 }
 
-const AuthContext = createContext<AuthProviderData>(
-    {} as AuthProviderData
-)
+interface ProviderData {
+    token: string,
+    setAuth: (token: string) => void,
+    signIn: (user: User, setError: (isTrue: boolean) => void) => void,
+    signUpForm: (user: UserSignUp, setError: (isTrue: boolean) => void) => void,
+}
 
-export const AuthProvider = ({children}: AuthProvidersProps) => {
-    const token = localStorage.getItem('token') || '';
+const AuthContext = createContext<ProviderData>({} as ProviderData);
 
-    const [auth, setAuth] = useState<Token>();
+export const AuthProvider = ({ children }: ProviderProps) => {
+    const history = useHistory()
+    const token = localStorage.getItem('token') || ''
 
-    const signIn = (user: User) => {
-        api.post<User>('/sessions/', user)
+    const [auth, setAuth] = useState<string>(token);
+
+    const signIn = (user: User, setError: (isTrue: boolean) => void) => {
+        
+        api
+        .post("/sessions/", user)
         .then((response) => {
-            localStorage.setItem('token', response.data.access);
+            localStorage.setItem("token", response.data.access);
             setAuth(response.data.access);
-            history.push('/dashboard');
+            toast.info('logado com sucesso')
+            history.push("/dashboard");
         })
-        .catch((err) => console.log(err));
-    }
+        .catch((err) => setError(true));
+    };
+
+    const signUpForm = (user: User, setError: (isTrue: boolean) => void) => {
+        
+        api
+        .post("/users/", user)
+        .then((response) => {
+            toast.success('usuario criado com sucesso')
+            history.push("/login");
+        })
+        .catch((err) => toast.error('erro ao criar o usuario, usuario cadastrado'));
+    };
 
     return (
-        <AuthContext.Provider
-            value={{ token, signIn}}
-        >
-            {children}
+        <AuthContext.Provider value={{ token: auth, setAuth, signIn, signUpForm }}>
+        {children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 
 export const useAuth = () => useContext(AuthContext);

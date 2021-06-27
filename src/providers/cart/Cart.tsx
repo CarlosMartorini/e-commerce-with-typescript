@@ -6,7 +6,7 @@ interface CartProvidersProps {
 }
 
 interface CartProviderData {
-    cartList: Product[];
+    cart: Product[];
 }
 
 const CartContext = createContext<CartProviderData>(
@@ -15,8 +15,6 @@ const CartContext = createContext<CartProviderData>(
 
 export const CartProvider = ({children}: CartProvidersProps) => {
     const [cart, setCart] = useState<Product[]>([] as Product[]);
-    //como passar a linha abaixo dentro do useState ?????
-    //JSON.parse(localStorage.getItem('cart')) || []
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -24,7 +22,7 @@ export const CartProvider = ({children}: CartProvidersProps) => {
 
     return (
         <CartContext.Provider
-            value={{cartList, setCart}}
+            value={{cart}}
         >
             {children}
         </CartContext.Provider>
