@@ -1,19 +1,26 @@
+import { Redirect } from "react-router-dom";
+import { useAuth } from "../../providers/authentication/Auth";
+
 const Dashboard = () => {
-    return (
-      <h1>
+  const { token } = useAuth()
+  
+  if(token === ''){
+      return <Redirect to='/'/>
+  }
+  
+  return (
+    <h1>
         Dashboard
         <button
-          // Gambiarra
-          onClick={() => {
-            localStorage.clear();
+        onClick={() => {
+            localStorage.setItem("token", '')
             window.location.reload();
-          }}
+        }}
         >
           Logout
         </button>
-      </h1>
-    );
-  };
-  
-  export default Dashboard;
-  
+    </h1>
+  );
+};
+
+export default Dashboard;
