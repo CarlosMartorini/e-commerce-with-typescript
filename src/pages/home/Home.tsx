@@ -5,6 +5,7 @@ import { Container, ProductList } from "./Styles";
 import { useCart } from "../../providers/cart/Cart";
 import { Product } from "../../types/Product";
 import formatValue from '../../utils/formatValue';
+import { toast } from "react-toastify";
 
 
 const Home = () => {
@@ -46,7 +47,10 @@ const Home = () => {
                 <span>{product.priceFormatted}</span>
                   <button
                     type="button"
-                    onClick={() => setCart([...cart, product])}
+                    onClick={() => {
+                      setCart([...cart, product])
+                      toast.success(`ADD TO CART SUCCEED`)
+                    }}
                   >
                   <span>Add to Cart</span>
                   </button>
