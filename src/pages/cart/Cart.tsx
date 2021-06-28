@@ -18,6 +18,7 @@ import Typography from "@material-ui/core/Typography";
 import { useHistory } from "react-router-dom";
 import { useCart } from "../../providers/cart/Cart";
 import { Product } from "../../types/Product";
+import formatValue from "../../utils/formatValue";
 
 const useStyles = makeStyles((theme: Theme) => ({
   table: {
@@ -50,8 +51,7 @@ const Cart = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const subTotal = 
-  cart.reduce((product: number, acc: Product) => acc.price + product, 0)
+  const subtotal = cart.reduce((acc, prod) => acc + prod.price, 0);
 
   if (!cart.length) {
     return (
@@ -77,23 +77,23 @@ const Cart = () => {
           <TableHead>
             <TableRow>
                 <TableCell>
-                  <strong>Produto</strong>
+                  <strong>Product</strong>
                 </TableCell>
                 <TableCell>{"  "}</TableCell>
                 <TableCell align="right">
-                  <strong>Preço</strong>
+                  <strong>Price</strong>
                 </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
           {
             cart.map((product: Product) => (
-              <TableRow key={product.title}>
+              <TableRow key={product.id}>
               <TableCell>
-                  <Image src={product.img} alt="Produto" />
+                  <Image src={product.image} alt="Produto" />
               </TableCell>
               <TableCell>{product.title}</TableCell>
-              <TableCell align="right">$: {product.price}</TableCell>
+              <TableCell align="right">{product.priceFormatted}</TableCell>
               </TableRow>
             ))
           }
@@ -103,11 +103,11 @@ const Cart = () => {
       <Card className={classes.root}>
         <CardContent>
             <Typography variant="h6" component="strong">
-              <strong>Resumo do pedido</strong>
+              <strong>Order</strong>
             </Typography>
             <CardContainer>
-              <h4>{cart.length} Produtos</h4>
-              <h4>R$: {subTotal}</h4>
+              <h4>{cart.length} Products</h4>
+              <h4>$ {subtotal}</h4>
             </CardContainer>
         </CardContent>
         <CardActions className={classes.pos}>

@@ -4,6 +4,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { Container, ProductList } from "./Styles";
 import { useCart } from "../../providers/cart/Cart";
 import { Product } from "../../types/Product";
+import formatValue from '../../utils/formatValue';
 
 
 const Home = () => {
@@ -17,7 +18,7 @@ const Home = () => {
 
     const data = response.data.map((product: Product) => ({
     ...product,
-    price: product.price,
+    priceFormatted: formatValue(product.price),
   }));
 
   setLoading(false);
@@ -38,16 +39,16 @@ const Home = () => {
           products.map((product: Product) => (
             <li key={product.id}>
               <figure>
-                <img src={product.img} alt={product.title} />
+                <img src={product.image} alt={product.title} />
               </figure>
               <strong>{product.title}</strong>
               <div>
-                <span>{product.price}</span>
+                <span>{product.priceFormatted}</span>
                   <button
                     type="button"
                     onClick={() => setCart([...cart, product])}
                   >
-                  <span>Adicionar ao carrinho</span>
+                  <span>Add to Cart</span>
                   </button>
               </div>
             </li>
