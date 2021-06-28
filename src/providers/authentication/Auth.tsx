@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: ProviderProps) => {
         .then((response) => {
             localStorage.setItem("token", response.data.access);
             setAuth(response.data.access);
-            toast.info(`${user.username} Logged`)
+            toast.info(`${user.username} LOGGED`)
             history.push("/dashboard");
         })
         .catch((err) => setError(true));
