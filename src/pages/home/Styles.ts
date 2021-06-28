@@ -25,7 +25,7 @@ export const ProductList = styled.ul`
     width: 300px;
     display: flex;
     flex-direction: column;
-    background: #fff;
+    background: #ffffff;
     border-radius: 4px;
     padding: 20px;
     &:hover figure img {
