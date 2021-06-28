@@ -68,7 +68,7 @@ const Login = () => {
     </form>
     {error && <span> User or password wrong! </span>}
     <div style={{marginTop: '30px'}}>
-        <p>Don;t have a account yet? <Link to='/SignUp'>SignUp</Link></p>
+        <p>Don't have a account yet? <Link to='/signup'>SignUp</Link></p>
     </div>
     </Container>
   );

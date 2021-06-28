@@ -1,4 +1,5 @@
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -8,36 +9,31 @@ import { Badge } from "@material-ui/core";
 import { useAuth } from "../../providers/authentication/Auth";
 import { useCart } from "../../providers/cart/Cart";
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   "@global": {
-      ul: {
+    ul: {
       margin: 0,
       padding: 0,
       listStyle: "none",
-      },
+    },
   },
-  
   appBar: {
-      borderBottom: `1px solid ${theme.palette.divider}`,
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
-
   toolbar: {
-      justifyContent: "space-between",
+    justifyContent: "space-between",
   },
-
   toolbarTitle: {
-      flexGrow: 1,
-      fontFamily: "Nunito, sans-serif",
-      fontWeight: 600,
+    flexGrow: 1,
+    fontFamily: "Nunito, sans-serif",
+    fontWeight: 600,
   },
-
   link: {
-      margin: theme.spacing(1, 1.5),
+    margin: theme.spacing(1, 1.5),
   },
-
 }));
 
-  export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar() {
   const classes = useStyles();
 
   const { token } = useAuth();
@@ -46,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   return (
     <AppBar
       position="static"
-      color="default"
+      color="secondary"
       elevation={0}
       className={classes.appBar}
     >
@@ -64,15 +60,15 @@ const useStyles = makeStyles((theme: Theme) => ({
         <nav>
           <NavLink to="/cart">
             <Badge badgeContent={cart.length} color="primary">
-            <FiShoppingCart size={20} />
+              <FiShoppingCart size={20} />
             </Badge>
             <span> Cart </span>
           </NavLink>
 
           {!token && (
             <NavLink to="/login">
-            <FiLogIn size={20} />
-              Login
+              <FiLogIn size={20} />
+                Login
             </NavLink>
           )}
         </nav>

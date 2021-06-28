@@ -33,13 +33,7 @@ function SignUp() {
     });
 
     const onSubmit = (data: UserSignUp) => {
-        const {username, password, email} = data
-        const user = {
-            username,
-            password,
-            email,
-        }
-        signUpForm(user, setError);
+        signUpForm(data, setError);
     };
 
     if(token !== ''){
@@ -65,7 +59,7 @@ function SignUp() {
             <TextField
                 margin="normal"
                 variant="outlined"
-                label="password"
+                label="Password"
                 size="small"
                 color="primary"
                 {...register('password')}
@@ -91,7 +85,7 @@ function SignUp() {
             <TextField
                 margin="normal"
                 variant="outlined"
-                label="email"
+                label="Email"
                 size="small"
                 color="primary"
                 {...register('email')}

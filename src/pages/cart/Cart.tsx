@@ -93,7 +93,7 @@ const Cart = () => {
                   <Image src={product.img} alt="Produto" />
               </TableCell>
               <TableCell>{product.title}</TableCell>
-              <TableCell align="right">R$: {product.price}</TableCell>
+              <TableCell align="right">$: {product.price}</TableCell>
               </TableRow>
             ))
           }

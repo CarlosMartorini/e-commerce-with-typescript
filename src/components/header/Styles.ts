@@ -5,7 +5,7 @@ export const NavLink = styled(Link)`
   margin: 10px;
   font-size: 18px;
 
-  color: #333;
+  color: #ffff90;
 
   > svg {
     transform: translateY(3.5px);
